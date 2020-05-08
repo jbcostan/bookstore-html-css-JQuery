@@ -1,0 +1,2 @@
+# bookstore-html-css-JQuery
+Javascript &amp; Ajax, removed my php files, you can create and customize your own
