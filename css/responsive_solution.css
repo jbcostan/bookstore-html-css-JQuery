@@ -1,0 +1,89 @@
+/* responsive.css  */
+
+/*  500 to 960 pixels */  
+@media screen and (min-width: 31.25em) {
+#col2 {
+    top:20%;
+}
+#myheader{
+    font-size:30px;
+}
+#btnBrowse{
+    font-size:20px;
+}
+#btnLogin{
+    font-size:20px;
+}
+#table2{
+    position:absolute;
+    top:45%;
+    left: 50%;
+    transform: translate(-50%,0%);
+    width:230%;
+    border-collapse: separate;
+    border-spacing: 10px 35px;
+
+}
+
+#space2{
+        line-height:56%;
+}
+
+
+}
+
+/*  under 500 px  */
+
+@media screen and (max-width: 31.25em ) {  
+#logo{
+    width:20%;
+    height:10%;
+}
+#tabs{
+     top:12%;
+     width: 225px;
+     font-size:170%;
+}
+#col2 {
+    top:25%;
+}
+#table1{
+    position:absolute;
+    left: 50%;
+    transform: translate(-50%,0%);
+    height:275%;
+    width:300%;
+    border-collapse: separate;
+    border-spacing: 15px 35px;
+}
+
+#table2{
+    position:absolute;
+    top:45%;
+    left: 50%;
+    transform: translate(-50%,0%);
+    width:200%;
+    border-collapse: separate;
+    border-spacing: 10px 35px;
+}
+
+#myheader{
+    font-size:30px;
+}
+#btnBrowse{
+    font-size:20px;
+}
+#btnLogin{
+    font-size:20px;
+}
+#btnSpace{
+    line-height:10%;
+}
+#logout{
+    font-size:10px;
+}
+
+
+
+
+}

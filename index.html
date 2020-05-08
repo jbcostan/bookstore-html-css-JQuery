@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple">
+    <link rel="stylesheet" media="screen" href="css/main.css"><!-- main css -->  
+    <link href="css/responsive_solution.css" rel="stylesheet" media="screen and (max-width: 960px)"> <!-- responsive-->  
+    
+<script>
+$(window).load(function() {
+		// Animate loader off screen
+		$(".se-pre-con").fadeOut("slow");;
+});
+$.get("username.php", function(data, status){
+    var username=data;
+    $("#account").text(username);
+    $( "#btnLogin" ).on( "click", function() {
+        if(username==="Account")
+        $( "#dialog" ).dialog( "open" );
+        else
+        alert("You're currently logged in as "+username);
+    });
+    
+});
+
+$( function() {
+    $( "#tabs" ).menu();
+    $( ".widget input[type=submit], .widget a, .widget button" ).button();
+    $( "#btnBrowse" ).css({"width":"255px"}).click( function( event ) {
+        event.preventDefault();
+        window.location.replace("catalog.html");
+    });
+     $( "#btnLogin" ).css({"width":"255px"}).click( function( event ) {
+        event.preventDefault();
+    });
+
+    $("#dialog").dialog({
+        //width:300,
+        //height:350,
+        modal:true,
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+    $("#dialog2").dialog({
+        //width:300,
+        //height:350,
+        modal:true,
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+    $( "#register" ).on( "click", function() {
+      $( "#dialog2" ).dialog( "open" );
+    });
+
+});//function()
+
+
+
+$(document).ready(function(){
+     $("#sb1").submit(function(){
+      //alert("button was clicked");
+    var uname=$("#uname").val().trim();
+    var pword=$("#pword").val();
+    $.post("login.php",{uname:uname,pword:pword},function(data){
+                var data=data.split(",");
+                uname=data[0].trim();
+                pword=data[1].trim();
+                msg=data[2].trim();
+
+                console.log(uname);
+                console.log(pword);
+                console.log(msg);
+                if(msg=="success"){
+                window.location.replace("catalog.html");
+                }
+                else{
+                     alert("wrong username/password");
+                }
+            });
+            return false
+    });    
+
+     $("#sb2").submit(function(){
+          //alert("Registered");
+    var runame=$("#runame").val().trim();
+    var rpword=$("#rpword").val();
+    var crpword=$("#crpword").val();
+    $("#runame").css("border-color","inherit");
+    $("#rpword").css("border-color","inherit");
+    $("#crpword").css("border-color","inherit");
+    if (runame=="" || runame==null || runame.length<5){
+        $("#runame").css("border-color","red");
+        alert("At least 5 characters long");
+    }
+    else if (rpword=="" || rpword==null || rpword.length<5){
+        $("#rpword").css("border-color","red");
+        alert("At least 5 characters long");
+    }
+    else if (crpword=="" || crpword==null){
+        $("#crpword").css("border-color","red");
+    }
+    else if(rpword !== crpword){
+        $("#rpword").css("border-color","red");
+        alert("Does not Match");
+    }
+    else if(runame.search(",")>=0||rpword.search(",")>=0){
+        $("#runame").css("border-color","red");
+        $("#rpword").css("border-color","red");
+        alert("can't contain comma");
+    }
+    else{
+         $.post("check.php",{runame:runame},function(data){
+            var check=data.trim();
+            console.log(check);
+            if(check==="true"){
+                $("#runame").css("border-color","red");
+                alert("Username already existed");
+            }
+            else{
+                if(confirm("Confirm?")){
+                    $.post("register.php",{runame:runame,rpword:rpword},function(data){
+                        var registermsg=data.trim();
+                        alert(registermsg);
+                    });
+                 $( "#dialog2" ).dialog("close");
+                }
+            }
+        });
+    }
+
+    return false
+    });//sb2
+});
+
+    
+ </script>
+</head>
+
+<body>
+<!-- preload -->    
+<div class="se-pre-con"></div>
+
+<!-- count particles -->
+<div class="count-particles">
+  <span class="js-count-particles">--</span> particles
+</div>
+
+<!-- particles.js container -->
+<div id="particles-js">
+  <img src="pictures/logo.png"  id="logo" alt="my university's book store logo created from https://www.freelogodesign.org/"> <!--central pitures folder -->
+    <ul id="tabs">
+      <li><div><a href="index.html">Home</a></div></li>
+      <li><div><a href="catalog.html">Catalog</a></div></li>
+      <li><div><a href="mycart.html">My Cart</a></div></li>
+      <li><div><a href="account.html"><span id="account">Account</span></a></div></li>
+    </ul>
+    
+    <div id="col2">
+        <div id="myheader" class="font-effect-shadow-multiple">WELCOME</div>
+        <br><br>
+        <div class="widget">
+            <button id="btnBrowse">Browse</button>
+            <div id="btnSpace"><br><br><br><br><br></div>
+            <button id="btnLogin">Login</button>
+        </div>
+    </div>
+    <div id="loginForm">  
+        <div id="dialog" title="Login">
+            <form action="#" id="sb1">
+            <label for="uname">Username</label>
+            <input type="text" id="uname" name="uname" placeholder="username..">
+            <label for="pword">Password</label>
+            <input type="password" id="pword" name="pword" placeholder="password..">
+            <input type="submit" value="Submit">
+            </form>
+            <a href="#" id="register">Register</a>
+        </div><!--dialog -->
+    </div><!--loginform -->
+   
+    <div id="dialog2" title="Registration">  
+        <div id="RegisterForm">
+            <form action="#" id="sb2">
+            <label for="runame">Username</label>
+            <input type="text" id="runame" name="runame" placeholder="username..">
+            <label for="rpword">Password</label>
+            <input type="password" id="rpword" name="rpword" placeholder="password..">
+            <label for="crpword">Confirm Password</label>
+            <input type="password" id="crpword" name="crpword" placeholder="confirm..">
+            <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    
+</div><!-- particles.js container -->
+
+<!-- scripts -->
+<script src="js/particles.js"></script> <!-- central js--> 
+<script src="js/app.js"></script>
+
+<!-- stats.js -->
+<script src="js/lib/stats.js"></script>
+<script>
+  var count_particles, stats, update;
+  stats = new Stats;
+  stats.setMode(0);
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.right = '0px';
+  stats.domElement.style.top = '0px';
+  document.body.appendChild(stats.domElement);
+  count_particles = document.querySelector('.js-count-particles');
+  update = function() {
+    stats.begin();
+    stats.end();
+    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
+    requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+</script>
+
+
+
+</body>
+</html>
